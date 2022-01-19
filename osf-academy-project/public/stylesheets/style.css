@@ -1,0 +1,73 @@
+html,
+body {
+  height: 100%;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: #daecec;
+  padding: 0 100px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+
+#heading {
+  font-size: 18px;
+}
+
+.darkWhite {
+  color: #fbdfdc;
+}
+
+.div1 {
+  background-color: #f57979;
+  color: #f9dad6;
+  border-radius: 10px 10px 0px 0px;
+}
+
+#desc {
+  color: #b8babb;
+  font-weight: 500;
+}
+
+#circle {
+  background-color: #f88d91;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+  color: #77cbc5;
+  font-weight: bold;
+}
+
+.sp1 {
+  background-color: #37b6b2;
+}
+
+.fa {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+hr.solid {
+  border-top: 2px solid #999;
+}
