@@ -12,96 +12,9 @@
     />
 
     <title><%= title%></title>
-    <%- include("../partials/header.ejs") %>
+    <%- include("index.ejs") %>
   </head>
   <body>
-    <h1 style="margin-top: 30px"><%= data.name%></h1>
-    <%= data.page_description%>
-
-    <h2 style="margin-top: 70px">Subcategories</h2>
-    <hr class="my-4" style="border-top: 2px solid #999" />
-
-    <div class="container-fluid">
-      <div class="row justify-content-start">
-        <div class="col-12 col-md-4 col-sm-12 col-xs-12">
-          <div class="card px-4 py-2">
-            <div class="div1 row py-2 px-2">
-              <div class="col-5 d-flex align-items-center">
-                <div
-                  class="rounded-circle d-flex align-items-center justify-content-center w-100"
-                  id="circle"
-                >
-                  <img
-                    src="/images/<%= data.image %>"
-                    height="90%"
-                    width="100%"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="py-2">
-              <p id="desc">
-                Make a gift for yourself or your family - choose a Lenovo laptop
-                and receive gifts!
-              </p>
-              <div class="d-flex">
-                <h6 class="align-self-center">
-                  <a href="#">
-                    View products
-                    <span class="rounded-circle sp1 px-2 py-0 ml-1">
-                      <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr class="my-4" />
-
-    <div class="container-fluid">
-      <div class="row justify-content-start">
-        <div class="col-12 col-md-4 col-sm-12 col-xs-12">
-          <div class="card px-4 py-2">
-            <div class="div1 row py-2 px-2">
-              <div class="col-5 d-flex align-items-center">
-                <div
-                  class="rounded-circle d-flex align-items-center justify-content-center w-100"
-                  id="circle"
-                >
-                  <img
-                    src="/images/<%= data.image %>"
-                    height="90%"
-                    width="100%"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="py-2">
-              <p id="desc">
-                Make a gift for yourself or your family - choose a Lenovo laptop
-                and receive gifts!
-              </p>
-              <div class="d-flex">
-                <h6 class="align-self-center">
-                  <a href="#">
-                    View products
-                    <span class="rounded-circle sp1 px-2 py-0 ml-1">
-                      <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script

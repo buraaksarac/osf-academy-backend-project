@@ -3,19 +3,27 @@ var router = express.Router();
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-const secretKey =
-  "$2a$08$eJAjg0pwKBepyGB/xKXP8.11w9BwA3rdtAuB0RFXmCL93egouP3.W";
-const url = `https://osf-digital-backend-academy.herokuapp.com/api//categories/parent/womens?secretKey=${secretKey}`;
+var secretKey = require("../../public/javascripts/secretKey.js");
+
+const mainCategoryURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/womens?secretKey=${secretKey}`;
+const subcategoryURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/parent/womens?secretKey=${secretKey}`;
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-  const response = await fetch(url).then((response_from_API) =>
-    response_from_API.json()
+  const categoryResponse = await fetch(mainCategoryURL).then((response) =>
+    response.json()
   );
-  console.log(response);
+  const subcategoryResponse = await fetch(subcategoryURL).then((response) =>
+    response.json()
+  );
+
+  console.log(categoryResponse);
+  console.log(subcategoryResponse);
+
   res.render("categories/women", {
-    title: "Alibazon - " + response.page_title,
-    data: response,
+    title: "Alibazon - " + categoryResponse.page_title,
+    data: categoryResponse,
+    subcategories: subcategoryResponse,
   });
 });
 

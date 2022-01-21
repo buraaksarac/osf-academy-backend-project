@@ -5,7 +5,6 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var productsRouter = require("./routes/products");
-var aboutRouter = require("./routes/about");
 var signInRouter = require("./routes/signIn");
 var signUpRouter = require("./routes/signUp");
 var menCategoryRouter = require("./routes/categories/men");
@@ -24,16 +23,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/products", productsRouter);
-app.use("/about", aboutRouter);
 app.use("/signIn", signInRouter);
 app.use("/signUp", signUpRouter);
-app.use("/categories/men", menCategoryRouter);
+app.use(menCategoryRouter);
 app.use("/categories/women", womenCategoryRouter);
 
 /* Set default page (Home page) as men-clothing page  */
 app.get("/", function (req, res) {
-  res.redirect("/categories/men");
+  res.redirect("/categories/mens");
 });
+/* app.get("/categories/:name", function (req, res) {
+  res.send("tagId is set to " + req.params.name);
+}); */
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
