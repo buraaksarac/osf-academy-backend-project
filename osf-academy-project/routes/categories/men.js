@@ -47,22 +47,21 @@ router.get("/categories/mens-clothing", async function (req, res, next) {
 router.get(
   "/categories/mens-clothing-jackets",
   async function (req, res, next) {
-    // const mainUrl = `https://osf-digital-backend-academy.herokuapp.com/api//categories/parent/mens-clothing-jackets?secretKey=${secretKey}`;
-    // const subUrl = `https://osf-digital-backend-academy.herokuapp.com/api//categories/mens-clothing-jackets?secretKey=${secretKey}`;
     const url = `https://osf-digital-backend-academy.herokuapp.com/api//products/product_search?primary_category_id=mens-clothing-jackets&secretKey=${secretKey}`;
-
-    /* const mainResponse = await fetch(mainUrl).then((response) =>
-      response.json()
-    ); */
-    // const subResponse = await fetch(subUrl).then((response) => response.json());
     const response = await fetch(url).then((data) => data.json());
-    res.render("categories/products");
-
-    /*     res.render("categories/men", {
-      title: "Alibazon",
-      data: mainResponse,
-      subcategories: subResponse,
-    }); */
+    res.render("categories/productsPage", {
+      products: response,
+    });
+  }
+);
+router.get(
+  "/categories/mens-clothing-jackets/product/21736758",
+  async function (req, res, next) {
+    const url = `https://osf-digital-backend-academy.herokuapp.com/api//products/product_search?primary_category_id=mens-clothing-jackets&secretKey=${secretKey}`;
+    const response = await fetch(url).then((data) => data.json());
+    res.render("categories/product", {
+      products: response,
+    });
   }
 );
 router.get(

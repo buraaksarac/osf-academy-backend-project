@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="icon" href="/images/icon.png" type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <title>YO</title>
+    <%- include("../partials/header.ejs") %>
+  </head>
+  <body style="background-color: cadetblue">
+    <% if(typeof products != 'undefined') { %> <%
+    products.forEach(function(data) { %>
+    <div class="card mb-3" style="max-width: 450px">
+      <div class="card-header"><%= data.name %></div>
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img
+            class="card-img"
+            src="/images/<%= data.image_groups[0].images[0].link %>"
+            alt="Card image cap"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text"><%= data.short_description%></p>
+            <button
+              onclick="direct('/product/<%= data.master.master_id%>')"
+              class="btn btn-primary"
+            >
+              More Info
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %> <% } %>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
