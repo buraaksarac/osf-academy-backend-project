@@ -32,9 +32,6 @@ app.use("/categories/women", womenCategoryRouter);
 app.get("/", function (req, res) {
   res.redirect("/categories/mens");
 });
-/* app.get("/categories/:name", function (req, res) {
-  res.send("tagId is set to " + req.params.name);
-}); */
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

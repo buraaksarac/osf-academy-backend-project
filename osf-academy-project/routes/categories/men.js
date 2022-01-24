@@ -7,8 +7,8 @@ var secretKey = require("../../public/javascripts/secretKey.js");
 
 const mainCategoryURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/mens?secretKey=${secretKey}`;
 const subcategoryURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/parent/mens?secretKey=${secretKey}`;
-const subClothingURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/parent/mens-clothing?secretKey=${secretKey}`;
 const mainClothingURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/mens-clothing?secretKey=${secretKey}`;
+const subClothingURL = `https://osf-digital-backend-academy.herokuapp.com/api//categories/parent/mens-clothing?secretKey=${secretKey}`;
 
 /* GET home page. */
 router.get("/categories/mens", async function (req, res, next) {
@@ -54,16 +54,16 @@ router.get(
     });
   }
 );
+
 router.get(
-  "/categories/mens-clothing-jackets/product/21736758",
+  "/categories/mens-clothing-jackets/product/:product",
   async function (req, res, next) {
-    const url = `https://osf-digital-backend-academy.herokuapp.com/api//products/product_search?primary_category_id=mens-clothing-jackets&secretKey=${secretKey}`;
+    const url = `https://osf-digital-backend-academy.herokuapp.com/api//products/product_search?id=${req.params.product}&secretKey=${secretKey}`;
     const response = await fetch(url).then((data) => data.json());
-    res.render("categories/product", {
-      products: response,
-    });
+    res.render("categories/product", { product: response[0] });
   }
 );
+
 router.get(
   "/categories/mens-clothing-dress-shirts",
   async function (req, res, next) {
