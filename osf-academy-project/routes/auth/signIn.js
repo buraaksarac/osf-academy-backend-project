@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var secretKey = require("../public/javascripts/secretKey.js");
+var secretKey = require("../../public/javascripts/secretKey");
 
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));

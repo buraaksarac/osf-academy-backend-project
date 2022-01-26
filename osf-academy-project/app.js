@@ -4,11 +4,10 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var productsRouter = require("./routes/products");
-var signInRouter = require("./routes/signIn");
-var signUpRouter = require("./routes/signUp");
-var menCategoryRouter = require("./routes/categories/men");
-var womenCategoryRouter = require("./routes/categories/women");
+var productRouter = require("./routes/productDetail/product");
+var signInRouter = require("./routes/auth/signIn");
+var signUpRouter = require("./routes/auth/signUp");
+var categoryRouter = require("./routes/categories/index");
 
 var app = express();
 
@@ -22,11 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/products", productsRouter);
+app.use("/categories/:parentCategory/product", productRouter);
 app.use("/signIn", signInRouter);
 app.use("/signUp", signUpRouter);
-app.use(menCategoryRouter);
-app.use("/categories/women", womenCategoryRouter);
+app.use("/categories", categoryRouter);
 
 /* Set default page (Home page) as men-clothing page  */
 app.get("/", function (req, res) {

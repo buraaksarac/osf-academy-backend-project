@@ -44,7 +44,9 @@
                 <button class="btn btn-primary">Add to Cart</button>
               </div>
               <div class="col-md-3">
-                <small class="text-info">Price: <%= product.price%> </small>
+                <span class="text-info"
+                  >Price: <span id="price"><%= product.price%></span>
+                </span>
               </div>
               <div class="col-md-1">
                 <div class="dropdown">
@@ -52,9 +54,9 @@
                     class="btn btn-secondary dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton"
-                    data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
+                    onchange="_onChange('<%= product.price%>')"
                   >
                     Dropdown button
                     <div
@@ -76,9 +78,26 @@
     </div>
 
     <% } %>
+    <script>
+      function _onChange(originalPrice) {
+        const selectedCurrency = $("#dropdownMenuButton option:selected").val();
+
+        $.get(
+          "https://v6.exchangerate-api.com/v6/ab54fab3f55ab173310728cf/latest/USD",
+          function (data, status) {
+            if (status === "success") {
+              let convertedCurrency =
+                originalPrice * data.conversion_rates[selectedCurrency];
+              convertedCurrency = Math.floor(convertedCurrency * 100) / 100;
+              $("#price").html(convertedCurrency.toFixed(0));
+            }
+          }
+        );
+      }
+    </script>
     <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"
       crossorigin="anonymous"
     ></script>
     <script
