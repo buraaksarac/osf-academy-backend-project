@@ -10,14 +10,14 @@ const { check, validationResult } = require("express-validator");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get("/", function (req, res, next) {
-  res.render("auth/signIn");
+  res.render("auth/signIn", { title: "Sign In" });
 });
 
 router.post(
   "/",
   urlencodedParser,
   [
-    check("email", "Email is not valid").not().isEmpty(),
+    check("email", "Email is not valid").isEmail().normalizeEmail(),
     check("password", "Password can not be empty").not().isEmpty(),
   ],
   async (req, res) => {
@@ -51,14 +51,13 @@ router.post(
 
     if (!errors.isEmpty() || alerts.length !== 0) {
       const alertForValidity = errors.array();
+      let alertForResponse = !errors.isEmpty() ? [] : alerts;
 
-      if (!errors.isEmpty()) {
-        const alertForResponse = [];
-        res.render("auth/signIn", { alertForValidity, alertForResponse });
-      } else {
-        const alertForResponse = alerts;
-        res.render("auth/signIn", { alertForValidity, alertForResponse });
-      }
+      res.render("auth/signIn", {
+        title: "Sign In",
+        alertForValidity,
+        alertForResponse,
+      });
     } else {
       res.json(responseFromAPI);
     }

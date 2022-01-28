@@ -8,6 +8,7 @@ var productRouter = require("./routes/productDetail/product");
 var signInRouter = require("./routes/auth/signIn");
 var signUpRouter = require("./routes/auth/signUp");
 var categoryRouter = require("./routes/categories/index");
+var cartRouter = require("./routes/cart-wishlist/cart");
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use("/categories/:parentCategory/product", productRouter);
 app.use("/signIn", signInRouter);
 app.use("/signUp", signUpRouter);
 app.use("/categories", categoryRouter);
+app.use("/cart", cartRouter);
 
 /* Set default page (Home page) as men-clothing page  */
 app.get("/", function (req, res) {

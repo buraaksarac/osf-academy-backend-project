@@ -7,8 +7,8 @@ const { secretKey } = require("../../public/javascripts/secretKey");
 const { endPoints } = require("../../public/javascripts/endPoints");
 
 /* GET home page. */
-router.get("/:category", async function (req, res, next) {
-  const paramStyle1 = req.params.category + "?" + `secretKey=${secretKey}`;
+router.get("/", async function (req, res, next) {
+  /*   const paramStyle1 = req.params.category + "?" + `secretKey=${secretKey}`;
   const paramStyle2 = req.params.category + "&" + `secretKey=${secretKey}`;
   let main = "";
   let sub = "";
@@ -36,7 +36,8 @@ router.get("/:category", async function (req, res, next) {
     : res.render("product/productList", {
         title: "Yelo",
         products: mainResponse,
-      });
+      }); */
+  res.render("cart-wishlist/cart", { title: "Alibazon" });
 });
 
 module.exports = router;

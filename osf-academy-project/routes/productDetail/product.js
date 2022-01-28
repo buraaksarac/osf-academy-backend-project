@@ -13,7 +13,10 @@ router.get("/:product", async function (req, res, next) {
 
   const response = await fetch(url).then((data) => data.json());
 
-  res.render("product/productDetail", { product: response[0] });
+  res.render("product/productDetail", {
+    title: response[0].page_title,
+    product: response[0],
+  });
 });
 
 module.exports = router;
