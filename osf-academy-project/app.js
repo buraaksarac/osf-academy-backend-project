@@ -3,12 +3,14 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var session = require("express-session");
 
 var productRouter = require("./routes/productDetail/product");
 var signInRouter = require("./routes/auth/signIn");
 var signUpRouter = require("./routes/auth/signUp");
 var categoryRouter = require("./routes/categories/index");
 var cartRouter = require("./routes/cart-wishlist/cart");
+var profileRouter = require("./routes/auth/profile");
 
 var app = express();
 
@@ -25,8 +27,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/categories/:parentCategory/product", productRouter);
 app.use("/signIn", signInRouter);
 app.use("/signUp", signUpRouter);
+app.use("/profile", profileRouter);
 app.use("/categories", categoryRouter);
 app.use("/cart", cartRouter);
+
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: "secret",
+  })
+);
 
 /* Set default page (Home page) as men-clothing page  */
 app.get("/", function (req, res) {

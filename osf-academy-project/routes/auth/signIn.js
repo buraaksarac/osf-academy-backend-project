@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-var secretKey = require("../../public/javascripts/secretKey");
 
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
@@ -8,9 +7,14 @@ const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const { secretKey } = require("../../services/config/secretKey");
+const { isLogged } = require("../../services/checkAuth/isLogged");
 
 router.get("/", function (req, res, next) {
-  res.render("auth/signIn", { title: "Sign In" });
+  res.render("auth/signIn", {
+    title: "Sign In",
+    auth: isLogged(req),
+  });
 });
 
 router.post(
@@ -57,9 +61,14 @@ router.post(
         title: "Sign In",
         alertForValidity,
         alertForResponse,
+        auth: req.cookies.auth != "undefined" ? true : false,
       });
     } else {
-      res.json(responseFromAPI);
+      res.cookie("auth", responseFromAPI, {
+        httpOnly: true,
+        maxAge: 3600000,
+      });
+      res.redirect("auth/profile");
     }
   }
 );

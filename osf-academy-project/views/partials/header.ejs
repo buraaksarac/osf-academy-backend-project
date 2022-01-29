@@ -12,6 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css"
     />
+    <% var clickable = auth ? "" : "disabled"; %> <% var profileIconHref = auth
+    ? "/profile" : "/signIn"; %>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-lightseagreen">
@@ -43,14 +45,16 @@
             <a class="nav-link" href="/categories/womens">Women</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/wishlist">Wishlist</a>
+            <a class="nav-link <%= clickable%>" href="/wishlist">Wishlist</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/cart" tabindex="-1">Cart</a>
+            <a class="nav-link <%= clickable%>" href="/cart" tabindex="-1"
+              >Cart</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signIn"
+            <a class="nav-link" href="<%= profileIconHref %>"
               ><i class="fa fa-user-circle"></i
             ></a>
           </li>

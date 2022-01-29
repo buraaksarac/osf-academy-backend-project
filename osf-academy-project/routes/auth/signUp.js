@@ -5,12 +5,17 @@ const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator");
-const { secretKey } = require("../../public/javascripts/secretKey");
+
+const { secretKey } = require("../../services/config/secretKey");
+const { isLogged } = require("../../services/checkAuth/isLogged");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get("/", function (req, res, next) {
-  res.render("auth/signUp", { title: "Alibazon - Sign Up" });
+  res.render("auth/signUp", {
+    title: "Alibazon - Sign Up",
+    auth: isLogged(req),
+  });
 });
 
 router.post(
@@ -63,7 +68,7 @@ router.post(
         alertForResponse,
       });
     } else {
-      res.json(responseFromAPI);
+      res.redirect("auth/signIn");
     }
   }
 );
