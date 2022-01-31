@@ -11,6 +11,7 @@ const { isLogged } = require("../../services/checkAuth/isLogged");
 router.get("/:category", async function (req, res, next) {
   const paramStyle1 = req.params.category + "?" + `secretKey=${secretKey}`;
   const paramStyle2 = req.params.category + "&" + `secretKey=${secretKey}`;
+
   const auth = isLogged(req);
   let main = "";
   let sub = "";
@@ -19,6 +20,7 @@ router.get("/:category", async function (req, res, next) {
   req.params.category.split("").forEach((letter) => {
     count = letter === "-" ? count + 1 : count;
   });
+  //mens, mens-clothing, mens-clothing-jackets
 
   main =
     count < 2

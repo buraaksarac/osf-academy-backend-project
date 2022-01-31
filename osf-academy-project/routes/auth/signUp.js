@@ -60,14 +60,14 @@ router.post(
     if (!errors.isEmpty() || alerts.length !== 0) {
       const alertForValidity = errors.array();
       let alertForResponse = !errors.isEmpty() ? [] : alerts;
-
-      res.render("auth/signUp", {
+      res.send("Error");
+      /*       res.render("auth/signUp", {
         title: "Alibazon - Sign Up",
         alertForValidity,
         alertForResponse,
-      });
+      }); */
     } else {
-      res.redirect("auth/signIn");
+      res.redirect("/signIn");
     }
   }
 );

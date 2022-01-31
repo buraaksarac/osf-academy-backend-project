@@ -31,13 +31,15 @@ router.get("/myCart", async function (req, res, next) {
   getCart()
     .then(async (IDs) => {
       let products = [];
-      for (let item of IDs) {
-        await getProducts(item.productId).then((i) => {
-          item.product = i[0];
-          products.push(item);
-        });
-      }
-      return products;
+      if (typeof IDs !== "undefined") {
+        for (let item of IDs) {
+          await getProducts(item.productId).then((i) => {
+            item.product = i[0];
+            products.push(item);
+          });
+        }
+        return products;
+      } else return [];
     })
     .then((products) => {
       res.render("cart-wishlist/cart", {
