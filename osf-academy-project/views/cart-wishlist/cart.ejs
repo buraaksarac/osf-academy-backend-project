@@ -11,7 +11,7 @@
     />
 
     <title><%= title%></title>
-    <%- include("../partials/header.ejs") %>
+    <%- include("../partials/header.ejs") %> <% var products= []; %>
   </head>
   <body>
     <section class="h-100 h-custom" style="background-color: #d2c9ff">
@@ -30,23 +30,29 @@
                         class="d-flex justify-content-between align-items-center mb-5"
                       >
                         <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                        <h6 class="mb-0 text-muted">3 items</h6>
+                        <h6 class="mb-0 text-muted">
+                          <%= cartProducts.length%> items
+                        </h6>
                       </div>
                       <hr class="my-4" />
-
+                      <% var total = 0;%> <% if(typeof cartProducts !==
+                      'undefined') { %> <%
+                      cartProducts.forEach(function(product) { %> <% total +=
+                      product.variant.price * product.quantity%>
                       <div
                         class="row mb-4 d-flex justify-content-between align-items-center"
                       >
                         <div class="col-md-2 col-lg-2 col-xl-2">
                           <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
+                            src="/images/<%= product.product.image_groups[0].images[0].link %>"
                             class="img-fluid rounded-3"
-                            alt="Cotton T-shirt"
+                            alt="<%= product.product.image_groups[0].images[0].alt %>"
                           />
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Shirt</h6>
-                          <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                          <h6 class="text-black mb-0">
+                            <%= product.product.name%>
+                          </h6>
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                           <button
@@ -60,46 +66,48 @@
                             id="form1"
                             min="0"
                             name="quantity"
-                            value="1"
+                            value="<%= product.quantity%>"
                             type="number"
-                            class="form-control form-control-sm"
+                            class="input-sm"
+                            style="min-width: 35%; max-width: 40%"
                           />
 
                           <button
                             class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp(); calculateTotal('<%= product.variant.price%>')"
                           >
                             <i class="fas fa-plus"></i>
                           </button>
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">€ 44.00</h6>
+                          <h6 class="mb-0" id="price">
+                            <%= product.variant.price * product.quantity%> <%=
+                            product.product.currency%>
+                          </h6>
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <a href="#!" class="text-muted"
+                          <a
+                            href=""
+                            class="text-muted"
+                            onclick="removeFromCart('<%= product.productId %>,<%= product.variant.product_id %>')"
                             ><i class="fas fa-times"></i
                           ></a>
                         </div>
                       </div>
 
                       <hr class="my-4" />
+                      <%})%> <% }%>
                     </div>
                   </div>
+
                   <div class="col-lg-4" style="background-color: #d3d3d3">
                     <div class="p-5">
                       <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                       <hr class="my-4" />
 
-                      <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">items 3</h5>
-                        <h5>€ 132.00</h5>
-                      </div>
-
-                      <hr class="my-4" />
-
                       <div class="d-flex justify-content-between mb-5">
                         <h5 class="text-uppercase">Total price</h5>
-                        <h5>€ 137.00</h5>
+                        <h5><%= total%> USD</h5>
                       </div>
 
                       <button
@@ -107,7 +115,7 @@
                         class="btn btn-dark btn-block btn-lg"
                         data-mdb-ripple-color="dark"
                       >
-                        Register
+                        Payment
                       </button>
                     </div>
                   </div>
@@ -118,21 +126,37 @@
         </div>
       </div>
     </section>
+
+    <script>
+      function removeFromCart(productId, variantId) {
+        $.ajax({
+          type: "GET",
+          url: "/removeFromCart/" + productId + "/" + variantId,
+          success: function (response) {
+            alert(response);
+            location.reload();
+          },
+          error: function (xhr, status, err) {
+            alert(xhr.responseText);
+          },
+        });
+      }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
   </body>

@@ -31,9 +31,8 @@ router.post(
   async (req, res) => {
     let alerts = [];
     req.body.secretKey = secretKey;
-    console.log(req.body);
 
-    const responseFromAPI = await fetch(
+    await fetch(
       "https://osf-digital-backend-academy.herokuapp.com/api//auth/signup",
       {
         method: "POST",

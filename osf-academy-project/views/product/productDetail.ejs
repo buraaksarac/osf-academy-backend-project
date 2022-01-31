@@ -23,62 +23,87 @@
     <%- include("../partials/header.ejs") %>
   </head>
 
-  <body style="background-color: cadetblue">
-    <% if(typeof product != 'undefined') { %>
-    <div class="card mb-3" style="min-width: 450px; max-width: 85%">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img
-            class="card-img"
-            src="/images/
+  <body>
+    <section class="h-100 h-custom" style="background-color: #d2c9ff">
+      <% if(typeof product != 'undefined') { %>
+      <div
+        class="card mb-3 min-vh-100 justify-content-center align-items-center"
+        style="max-width: 50%; margin: 0 auto; float: none"
+      >
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              class="card-img"
+              src="/images/
 						<%= product.image_groups[0].images[0].link %>"
-            alt="Card image cap"
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h4 class="card-text"><%= product.name %></h4>
-            <p class="card-text"><%= product.short_description%></p>
-            <div class="row g-0" style="margin-top: 15%">
-              <div class="col-md-5">
-                <button class="btn btn-primary">Add to Cart</button>
-              </div>
-              <div class="col-md-3">
-                <span class="text-info"
-                  >Price: <span id="price"><%= product.price%></span>
-                </span>
-              </div>
-              <div class="col-md-1">
-                <div class="dropdown">
-                  <select
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    onchange="_onChange('<%= product.price%>')"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-text"><%= product.name %></h4>
+              <p class="card-text"><%= product.short_description%></p>
+              <div class="row g-0" style="margin-top: 15%">
+                <div class="col-md-5">
+                  <button
+                    class="btn btn-primary"
+                    onclick="addToCart('<%= product%>')"
                   >
-                    Dropdown button
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
+                    Add to Cart
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <span class="text-info"
+                    >Price: <span id="price"><%= product.price%></span>
+                  </span>
+                </div>
+                <div class="col-md-1">
+                  <div class="dropdown">
+                    <select
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      onchange="_onChange()"
                     >
-                      <option value="USD" selected="selected">USD</option>
-                      <option value="EUR">EUR</option>
-                      <option value="TRY">TRY</option>
-                      <option value="JPY">JPY</option>
-                    </div>
-                  </select>
+                      Dropdown button
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <option value="USD" selected="selected">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="TRY">TRY</option>
+                        <option value="JPY">JPY</option>
+                      </div>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <% } %>
+      <% } %>
+    </section>
     <script>
+      function addToCart() {
+        $.get(
+          "/addToCart/" +
+            "<%= product.id%>" +
+            "/" +
+            "<%= product.variants[0].product_id%>" +
+            "/" +
+            1,
+          function (data, status) {
+            if (status === "success") {
+              alert(data);
+            }
+          }
+        );
+      }
       function _onChange(originalPrice) {
         const selectedCurrency = $("#dropdownMenuButton option:selected").val();
 

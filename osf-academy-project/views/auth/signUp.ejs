@@ -13,8 +13,8 @@
     <title><%= title %></title>
     <%- include("../partials/header.ejs") %>
   </head>
-  <body style="background-color: darkcyan">
-    <section class="vh-100">
+  <body>
+    <section class="h-100 h-custom" style="background-color: #d2c9ff">
       <% if(typeof alertForValidity != 'undefined') { %>
       <%alertForValidity.forEach(function(error) { %>
       <div class="alert alert-warning alert-dismissible fade show" role="alert">

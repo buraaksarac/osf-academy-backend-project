@@ -13,34 +13,36 @@
     <title><%= title %></title>
     <%- include("../partials/header.ejs") %>
   </head>
-  <body style="background-color: cadetblue">
-    <% if(typeof products != 'undefined') { %> <%
-    products.forEach(function(data) { %>
-    <div class="card mb-3" style="max-width: 450px">
-      <div class="card-header"><%= data.name %></div>
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img
-            class="card-img"
-            src="/images/<%= data.image_groups[0].images[0].link %>"
-            alt="Card image cap"
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <p class="card-text"><%= data.short_description%></p>
-            <a
-              href="<%= data.primary_category_id%>/product/<%= data.master.master_id%>"
-              class="btn btn-primary"
-            >
-              More Info
-            </a>
+  <body>
+    <section class="h-100 h-custom" style="background-color: #d2c9ff">
+      <% if(typeof products != 'undefined') { %> <%
+      products.forEach(function(data) { %>
+      <div class="card mb-3" style="max-width: 450px">
+        <div class="card-header"><%= data.name %></div>
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              class="card-img"
+              src="/images/<%= data.image_groups[0].images[0].link %>"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <p class="card-text"><%= data.short_description%></p>
+              <a
+                href="<%= data.primary_category_id%>/product/<%= data.master.master_id%>"
+                class="btn btn-primary"
+              >
+                More Info
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <% }) %> <% } %>
 
+      <% }) %> <% } %>
+    </section>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

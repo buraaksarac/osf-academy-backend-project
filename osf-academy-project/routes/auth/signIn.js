@@ -16,6 +16,10 @@ router.get("/", function (req, res, next) {
     auth: isLogged(req),
   });
 });
+router.get("/logout", function (req, res, next) {
+  res.clearCookie("auth");
+  res.redirect("/");
+});
 
 router.post(
   "/",
@@ -68,7 +72,7 @@ router.post(
         httpOnly: true,
         maxAge: 3600000,
       });
-      res.redirect("auth/profile");
+      res.redirect("/profile");
     }
   }
 );
